@@ -21,11 +21,12 @@ export class User extends Model<User> {
     type: DataType.STRING,
     primaryKey: true
   })
-  id!: string;
+  id: string;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   })
   username: string;
 

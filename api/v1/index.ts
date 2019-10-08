@@ -5,7 +5,7 @@ import privateRoutes from './routes/private';
 
 const router = Router();
 
-router.use('/private', privateRoutes);
-router.use('/public', publicRoutes);
+router.use(privateRoutes);
+router.use(publicRoutes);
 
 export default router;

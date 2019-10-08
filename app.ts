@@ -1,20 +1,26 @@
 import express from 'express';
 import { createServer } from 'http';
-import { json } from 'body-parser';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
 
 import db from './db';
 import createAdmin from './utils/createAdmin';
 import apiV1 from './api/v1';
 
+import configurePassport from './api/v1/passport';
+
 const port = process.env.PORT || 9000;
 const app = express();
 
-app.use(json());
+app.use(cors());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(passport.initialize());
 app.use(passport.session());
+configurePassport();
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
