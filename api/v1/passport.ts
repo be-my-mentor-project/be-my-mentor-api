@@ -4,8 +4,8 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 
-import jwtConfig from '../../config/jwtConfig';
-import User, { Role, Status } from '../../models/User';
+import jwtConfig from 'config/jwtConfig';
+import User, { Role, Status } from 'models/User';
 import UserDTO from './DTO/User';
 
 const { secret, saltRounds } = jwtConfig;

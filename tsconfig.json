@@ -11,10 +11,12 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
-      ]
+      "api/*": ["api/*"],
+      "config/*": ["config/*"],
+      "db/*": ["db/*"],
+      "models/*": ["models/*"],
+      "typings/*": ["typings/*"],
+      "utils/*": ["utils/*"]
     }
   }
 }

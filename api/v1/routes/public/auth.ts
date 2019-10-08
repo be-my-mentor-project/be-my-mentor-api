@@ -3,7 +3,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { v1 as uuid } from 'uuid';
 
-import jwtConfig from '../../../../config/jwtConfig';
+import jwtConfig from 'config/jwtConfig';
 
 const { secret } = jwtConfig;
 

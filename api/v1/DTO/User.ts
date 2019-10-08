@@ -1,4 +1,4 @@
-import { Status, Role } from '../../../models/User';
+import { Status, Role } from 'models/User';
 
 export default interface UserDTO {
   id: string,

@@ -1,4 +1,4 @@
-import { dbConfig } from '../typings/dbConfig';
+import { dbConfig } from 'typings/dbConfig';
 
 const config: dbConfig = {
   development: {

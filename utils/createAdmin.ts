@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import { v1 as uuid } from 'uuid';
 
-import User, { Role, Status } from '../models/User';
+import User, { Role, Status } from 'models/User';
 
-import jwtConfig from '../config/jwtConfig';
+import jwtConfig from 'config/jwtConfig';
 
 const { saltRounds } = jwtConfig;
 
