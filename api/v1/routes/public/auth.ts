@@ -3,6 +3,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { v1 as uuid } from 'uuid';
 
+import { addSession } from 'session';
 import jwtConfig from 'config/jwtConfig';
 
 const { secret } = jwtConfig;
@@ -28,6 +29,8 @@ export function login(req: Request, res: Response) {
           id: user.id,
           jti
         }, secret);
+
+        addSession(jti);
 
         return res.json({ success: true, content: { user, token } });
       });

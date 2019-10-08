@@ -16,7 +16,8 @@
       "db/*": ["db/*"],
       "models/*": ["models/*"],
       "typings/*": ["typings/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "session/*": ["session/*"]
     }
   }
 }

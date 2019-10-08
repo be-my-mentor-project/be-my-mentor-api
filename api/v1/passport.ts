@@ -4,6 +4,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 
+import { isAuthenticated } from 'session';
 import jwtConfig from 'config/jwtConfig';
 import User, { Role, Status } from 'models/User';
 import UserDTO from './DTO/User';
@@ -86,10 +87,14 @@ export default function configurePassport(app: Express) {
 
   passport.use(
     'jwt',
-    new JWTStrategy(opts, async (jwt_payload, done) => {
+    new JWTStrategy(opts, async ({ jti, id }, done) => {
+      if (!jti || !id) {
+        done(null, false);
+      }
+
       try {
-        const user = await User.findOne({ where: { id: jwt_payload.id } });
-        if (user) {
+        const user = await User.findOne({ where: { id } });
+        if (user && isAuthenticated(jti)) {
           done(null, user);
         } else {
           done(null, false);
