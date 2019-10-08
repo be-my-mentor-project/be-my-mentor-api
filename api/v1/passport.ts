@@ -1,3 +1,4 @@
+import { Express } from 'express';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
@@ -9,7 +10,9 @@ import UserDTO from './DTO/User';
 
 const { secret, saltRounds } = jwtConfig;
 
-export default function configurePassport() {
+export default function configurePassport(app: Express) {
+  app.use(passport.initialize());
+
   passport.use(
     'register',
     new LocalStrategy(

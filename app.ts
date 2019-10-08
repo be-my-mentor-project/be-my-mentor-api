@@ -2,7 +2,6 @@ import express from 'express';
 import { createServer } from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import passport from 'passport';
 
 import db from './db';
 import createAdmin from './utils/createAdmin';
@@ -18,26 +17,18 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(passport.initialize());
-app.use(passport.session());
-configurePassport();
-
-app.get('/', (req, res) => res.send('Hello World!'));
+configurePassport(app);
 
 app.use('/api/v1', apiV1);
 
-app.get('/api/home', function(req, res) {
-  res.send('Welcome!');
-});
-
-app.get('/api/secret', function(req, res) {
-  res.send('The password is potato');
-});
-
 (async () => {
   await db.sync();
+  // Seed default admin user
+  // TODO: move it to seeders
   await createAdmin();
 
   createServer(app)
-    .listen(port, () => console.log(`Server listen on port ${port}`));
+    .listen(port, () =>
+      console.log(`Server listen on port ${port}`)
+    );
 })();
