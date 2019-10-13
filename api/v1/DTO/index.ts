@@ -1,3 +1,5 @@
-import UserDTO from './User';
-
-export { UserDTO };
+export {
+  UserDTO,
+  UserErrorsDTO,
+  UserLoginDTO,
+} from './User';

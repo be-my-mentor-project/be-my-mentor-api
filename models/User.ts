@@ -9,7 +9,8 @@ export enum Role {
 
 export enum Status {
   Active = 'ACTIVE',
-  Inactive = 'INACTIVE'
+  Inactive = 'INACTIVE',
+  Suspended = 'SUSPENDED'
 }
 
 @Table({
