@@ -7,42 +7,12 @@ import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import { isAuthenticated } from 'session';
 import jwtConfig from 'config/jwtConfig';
 import User, { Role, Status } from 'models/User';
-import UserDTO from './DTO/User';
+import { UserLoginDTO } from './DTO';
 
 const { secret, saltRounds } = jwtConfig;
 
 export default function configurePassport(app: Express) {
   app.use(passport.initialize());
-
-  passport.use(
-    'register',
-    new LocalStrategy(
-      async (
-        username: string,
-        password: string,
-        done
-      ) => {
-        try {
-          const user = await User.findOne({ where: { username } });
-          if (user) {
-            return done(null, false, { message: 'Username already taken' });
-          }
-
-          const hashedPassword = bcrypt.hashSync(passport, saltRounds);
-          const newUser = await User.create({
-            username,
-            password: hashedPassword,
-            role: Role.Unknown,
-            status: Status.Active,
-            firstName: username
-          });
-          return done(null, newUser);
-        } catch(e) {
-          done(e);
-        }
-      }
-    )
-  );
 
   passport.use(
     'login',
@@ -54,20 +24,10 @@ export default function configurePassport(app: Express) {
             const passwordIsCorrect = bcrypt.compareSync(password, user.password);
             if (passwordIsCorrect) {
 
-              const userDTO: UserDTO = {
+              const userDTO: UserLoginDTO = {
                 id: user.id,
-                username: user.username,
-                status: user.status,
-                role: user.role,
+                username: user.username
               };
-
-              if (Reflect.has(user, 'firstName')) {
-                userDTO.firstName = user.firstName;
-              }
-
-              if (Reflect.has(user, 'lastName')) {
-                userDTO.lastName = user.lastName;
-              }
 
               return done(null, userDTO);
             }
